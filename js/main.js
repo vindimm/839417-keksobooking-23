@@ -1,20 +1,3 @@
-function getRandomPositiveInteger (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
-function getRandomPositiveFloat (a, b, digits = 1) {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-  return result.toFixed(digits);
-}
-
-getRandomPositiveInteger();
-getRandomPositiveFloat();
-
 const AVATAR_MIN_INDEX = 1;
 const AVATAR_MAX_INDEX = 8;
 const PRICE_MIN = 1;
@@ -24,8 +7,7 @@ const ROOMS_MAX = 100;
 const GUESTS_MIN = 1;
 const GUESTS_MAX = 1000;
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const CHECKINS = ['12:00', '13:00', '14:00'];
-const CHECKOUTS = ['12:00', '13:00', '14:00'];
+const TIMES = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
@@ -37,6 +19,23 @@ const LOCATION_LAT_MAX = 35.70000;
 const LOCATION_LNG_MIN = 139.70000;
 const LOCATION_LNG_MAX = 139.80000;
 const SIMILAR_ADVERTS_COUNT = 10;
+
+const getRandomPositiveInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+const getRandomPositiveFloat = (a, b, digits = 1) => {
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
+  const result = Math.random() * (upper - lower) + lower;
+  return result.toFixed(digits);
+};
+
+getRandomPositiveInteger();
+getRandomPositiveFloat();
 
 const getRandomArrayElement = (elements) => elements[_.random(0, elements.length - 1)];
 
@@ -65,8 +64,8 @@ const createOffer = () => (
     type: getRandomArrayElement(TYPES),
     rooms: _.random(ROOMS_MIN, ROOMS_MAX),
     guests: _.random(GUESTS_MIN, GUESTS_MAX),
-    checkin: getRandomArrayElement(CHECKINS),
-    checkout: getRandomArrayElement(CHECKOUTS),
+    checkin: getRandomArrayElement(TIMES),
+    checkout: getRandomArrayElement(TIMES),
     features: getRandomItems(FEATURES),
     description: 'Очень удобное и уютное жилье',
     photos: getRandomItems(PHOTOS),
@@ -81,16 +80,16 @@ const createLocation = () => (
 );
 
 const createAdverts = () => {
-  function createOneAdvert() {
+  const createOneAdvert = () => {
     const author = createAuthor();
     const offer = createOffer();
-    const locat = createLocation();
+    const location = createLocation();
     return {
       author,
       offer,
-      locat,
+      location,
     };
-  }
+  };
   return createOneAdvert();
 };
 
