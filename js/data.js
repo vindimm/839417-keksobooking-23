@@ -64,20 +64,17 @@ const createLocation = () => (
   }
 );
 
-const createAdverts = () => {
-  const createOneAdvert = () => {
-    const author = createAuthor();
-    const offer = createOffer();
-    const location = createLocation();
-    return {
-      author,
-      offer,
-      location,
-    };
+const createAdvert = () => {
+  const author = createAuthor();
+  const offer = createOffer();
+  const location = createLocation();
+  return {
+    author,
+    offer,
+    location,
   };
-  return createOneAdvert();
 };
 
-const similarAdverts = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdverts());
+const similarAdverts = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdvert());
 
 export {similarAdverts};
