@@ -1,3 +1,7 @@
-import {similarAdverts} from './data.js';
+import {oneAdvert} from './generate-offers.js';
+import {tenAdverts} from './generate-offers.js';
 
-similarAdverts;
+const mapCanvas = document.querySelector('#map-canvas');
+mapCanvas.appendChild(oneAdvert);
+
+tenAdverts;
