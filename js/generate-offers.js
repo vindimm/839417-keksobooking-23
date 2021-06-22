@@ -21,6 +21,12 @@ const createPhotosList = (list, item, indexOfAdvert) => {
   });
 };
 
+const hideEmptyTag = (tag) => {
+  if (tag.textContent === '') {
+    tag.classList.add('visually-hidden');
+  }
+};
+
 const createNewAdvert = (indexAdvert) => {
   const templateFragment = document.querySelector('#card').content;
   const template = templateFragment.querySelector('.popup');
@@ -31,7 +37,7 @@ const createNewAdvert = (indexAdvert) => {
   const popupType = element.querySelector('.popup__type');
   const popupCapacity = element.querySelector('.popup__text--capacity');
   const popupTime = element.querySelector('.popup__text--time');
-  const popupDescription = element.querySelectorAll('.popup__description');
+  const popupDescription = element.querySelector('.popup__description');
   const popupAvatar = element.querySelector('.popup__avatar');
   const popupFeatureList = element.querySelector('.popup__features');
   const popupFeatureItems = element.querySelectorAll('.popup__feature');
@@ -39,13 +45,19 @@ const createNewAdvert = (indexAdvert) => {
   const popupPhotoItem = element.querySelector('.popup__photo');
 
   popupTitle.textContent = similarAdverts[indexAdvert].offer.title;
+  hideEmptyTag(popupTitle);
   popupAddress.textContent = similarAdverts[indexAdvert].offer.address;
+  hideEmptyTag(popupAddress);
   popupPrice.textContent = `${similarAdverts[indexAdvert].offer.price} ₽/ночь`;
-  popupType.textContent = similarAdverts[indexAdvert].offer.type;
-  popupCapacity.textContent =`${similarAdverts[indexAdvert].offer.rooms} комнаты для ${similarAdverts[indexAdvert].offer.guests} гостей`;
+  hideEmptyTag(popupPrice);
+  popupCapacity.textContent =`${similarAdverts[indexAdvert].offer.room} комнаты для ${similarAdverts[indexAdvert].offer.guests} гостей`;
+  hideEmptyTag(popupCapacity);
   popupTime.textContent = `Заезд после ${similarAdverts[indexAdvert].offer.checkin}, выезд до ${similarAdverts[indexAdvert].offer.checkout}`;
+  hideEmptyTag(popupTime);
   popupDescription.textContent = similarAdverts[indexAdvert].offer.description;
+  hideEmptyTag(popupDescription);
   popupAvatar.src = similarAdverts[indexAdvert].author.avatar;
+  popupAvatar.onerror = () => popupAvatar.classList.add('visually-hidden');
   switch (similarAdverts[indexAdvert].offer.type) {
     case 'flat':
       popupType.textContent = 'Квартира';
@@ -65,6 +77,7 @@ const createNewAdvert = (indexAdvert) => {
     default:
       popupType.textContent = similarAdverts[indexAdvert].offer.type;
   }
+  hideEmptyTag(popupType);
   createFeaturesList(popupFeatureList, popupFeatureItems, indexAdvert);
   createPhotosList(popupPhotosList, popupPhotoItem, indexAdvert);
 
