@@ -22,6 +22,8 @@ const advertFormHousingType = advertForm.querySelector('#type');
 const advertFormRoomNumber = advertForm.querySelector('#room_number');
 const advertFormCapacity = advertForm.querySelector('#capacity');
 const advertFormCapacityOptions = advertFormCapacity.querySelectorAll('option');
+const advertFormTimeIn = advertForm.querySelector('#timein');
+const advertFormTimeOut = advertForm.querySelector('#timeout');
 let minPriceValue = 1000;
 
 const deactivateForms = () => {
@@ -132,6 +134,14 @@ advertFormRoomNumber.addEventListener('change', () => {
     advertFormCapacityOptions[3].disabled = false;
     advertFormCapacityOptions[3].selected = true;
   }
+});
+
+advertFormTimeIn.addEventListener('change', () => {
+  advertFormTimeOut.value = advertFormTimeIn.value;
+});
+
+advertFormTimeOut.addEventListener('change', () => {
+  advertFormTimeIn.value = advertFormTimeOut.value;
 });
 
 export {deactivateForms};
