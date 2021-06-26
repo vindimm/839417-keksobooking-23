@@ -1,6 +1,15 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
+const MIN_BUNGALOW_PRICE = 0;
+const MIN_FLAT_PRICE = 1000;
+const MIN_HOTEL_PRICE = 3000;
+const MIN_HOUSE_PRICE = 5000;
+const MIN_PALACE_PRICE = 10000;
+const ROOM_NUMBER_OPTION_1 = 1;
+const ROOM_NUMBER_OPTION_2 = 2;
+const ROOM_NUMBER_OPTION_3 = 3;
+const ROOM_NUMBER_OPTION_4 = 100;
 
 const advertForm = document.querySelector('.ad-form');
 const advertFieldsets = advertForm.querySelectorAll('fieldset');
@@ -70,58 +79,53 @@ advertFormPriceInput.addEventListener('input', () => {
 advertFormHousingType.addEventListener('change', () => {
   switch (advertFormHousingType.value) {
     case 'bungalow':
-      advertFormPriceInput.placeholder = '0';
-      advertFormPriceInput.min = 0;
-      minPriceValue = 0;
+      advertFormPriceInput.placeholder = MIN_BUNGALOW_PRICE.toString();
+      advertFormPriceInput.min = MIN_BUNGALOW_PRICE;
+      minPriceValue = MIN_BUNGALOW_PRICE;
       break;
     case 'flat':
-      advertFormPriceInput.placeholder = '1000';
-      advertFormPriceInput.min = 1000;
-      minPriceValue = 1000;
+      advertFormPriceInput.placeholder = MIN_FLAT_PRICE.toString();
+      advertFormPriceInput.min = MIN_FLAT_PRICE;
+      minPriceValue = MIN_FLAT_PRICE;
       break;
     case 'hotel':
-      advertFormPriceInput.placeholder = '3000';
-      advertFormPriceInput.min = 3000;
-      minPriceValue = 3000;
+      advertFormPriceInput.placeholder = MIN_HOTEL_PRICE.toString();
+      advertFormPriceInput.min = MIN_HOTEL_PRICE;
+      minPriceValue = MIN_HOTEL_PRICE;
       break;
     case 'house':
-      advertFormPriceInput.placeholder = '5000';
-      advertFormPriceInput.min = 5000;
-      minPriceValue = 5000;
+      advertFormPriceInput.placeholder = MIN_HOUSE_PRICE.toString();
+      advertFormPriceInput.min = MIN_HOUSE_PRICE;
+      minPriceValue = MIN_HOUSE_PRICE;
       break;
     case 'palace':
-      advertFormPriceInput.placeholder = '10000';
-      advertFormPriceInput.min = 10000;
-      minPriceValue = 10000;
-      break;
-    default:
-      advertFormPriceInput.placeholder = '1000';
-      advertFormPriceInput.min = 1000;
-      minPriceValue = 1000;
+      advertFormPriceInput.placeholder = MIN_PALACE_PRICE.toString();
+      advertFormPriceInput.min = MIN_PALACE_PRICE;
+      minPriceValue = MIN_PALACE_PRICE;
       break;
   }
 });
 
 advertFormRoomNumber.addEventListener('change', () => {
-  if (advertFormRoomNumber.value === '1') {
+  if (advertFormRoomNumber.value === ROOM_NUMBER_OPTION_1.toString()) {
     advertFormCapacityOptions[0].disabled = true;
     advertFormCapacityOptions[1].disabled = true;
     advertFormCapacityOptions[2].disabled = false;
     advertFormCapacityOptions[3].disabled = true;
     advertFormCapacityOptions[2].selected = true;
-  } else if (advertFormRoomNumber.value === '2') {
+  } else if (advertFormRoomNumber.value === ROOM_NUMBER_OPTION_2.toString()) {
     advertFormCapacityOptions[0].disabled = true;
     advertFormCapacityOptions[1].disabled = false;
     advertFormCapacityOptions[2].disabled = false;
     advertFormCapacityOptions[3].disabled = true;
     advertFormCapacityOptions[1].selected = true;
-  } else if (advertFormRoomNumber.value === '3') {
+  } else if (advertFormRoomNumber.value === ROOM_NUMBER_OPTION_3.toString()) {
     advertFormCapacityOptions[0].disabled = false;
     advertFormCapacityOptions[1].disabled = false;
     advertFormCapacityOptions[2].disabled = false;
     advertFormCapacityOptions[3].disabled = true;
     advertFormCapacityOptions[0].selected = true;
-  } else if (advertFormRoomNumber.value === '100') {
+  } else if (advertFormRoomNumber.value === ROOM_NUMBER_OPTION_4.toString()) {
     advertFormCapacityOptions[0].disabled = true;
     advertFormCapacityOptions[1].disabled = true;
     advertFormCapacityOptions[2].disabled = true;
