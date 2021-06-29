@@ -24,6 +24,7 @@ const advertFormCapacity = advertForm.querySelector('#capacity');
 const advertFormCapacityOptions = advertFormCapacity.querySelectorAll('option');
 const advertFormTimeIn = advertForm.querySelector('#timein');
 const advertFormTimeOut = advertForm.querySelector('#timeout');
+
 let minPriceValue = 1000;
 
 const deactivateForms = () => {
