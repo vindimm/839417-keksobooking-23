@@ -11,7 +11,7 @@ let mainPinMarkerLat = INITIAL_MAIN_PIN_MARKER_LAT;
 let mainPinMarkerLng = INITIAL_MAIN_PIN_MARKER_LNG;
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -41,7 +41,7 @@ const renderMap = () => {
     .setView({
       lat: INITIAL_MAIN_PIN_MARKER_LAT,
       lng: INITIAL_MAIN_PIN_MARKER_LNG,
-    }, 10);
+    }, 12);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -52,7 +52,7 @@ const renderMap = () => {
   similarAdverts.forEach(({offer}, index) => {
     const [lat, lng] = getCoordinatsFromOffer(offer);
     const icon = L.icon({
-      iconUrl: '../img/pin.svg',
+      iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });
@@ -71,7 +71,7 @@ const renderMap = () => {
   });
 
   mainPinMarker.addTo(map);
-  document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
+  document.querySelector('#address').value = `${mainPinMarkerLat.toFixed(5)}, ${mainPinMarkerLng.toFixed(5)}`;
 };
 
 const setAdvertAddress = () => {
