@@ -8,3 +8,4 @@ fetch('https://23.javascript.pages.academy/keksobooking/data')
     renderMap(adverts, advertsMarkup);
     setAdvertAddress(adverts);
   });
+

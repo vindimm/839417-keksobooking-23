@@ -1,7 +1,7 @@
 import {activateForms} from './form.js';
 
-const INITIAL_MAIN_PIN_MARKER_LAT = 35.67000;
-const INITIAL_MAIN_PIN_MARKER_LNG = 139.75000;
+const INITIAL_MAIN_PIN_MARKER_LAT = 35.67005;
+const INITIAL_MAIN_PIN_MARKER_LNG = 139.75005;
 
 let mainPinMarkerLat = INITIAL_MAIN_PIN_MARKER_LAT;
 let mainPinMarkerLng = INITIAL_MAIN_PIN_MARKER_LNG;
@@ -73,3 +73,5 @@ const setAdvertAddress = () => {
 };
 
 export{renderMap, setAdvertAddress};
+export{INITIAL_MAIN_PIN_MARKER_LAT};
+export{INITIAL_MAIN_PIN_MARKER_LNG};

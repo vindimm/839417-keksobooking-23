@@ -1,5 +1,5 @@
 import {deactivateForms} from './form.js';
-import './get-data.js';
+import './link-backend.js';
 
 deactivateForms();
 
