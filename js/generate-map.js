@@ -64,6 +64,12 @@ const renderMap = (similarAdverts, advertsMarkup) => {
   document.querySelector('#address').value = `${mainPinMarkerLat.toFixed(5)}, ${mainPinMarkerLng.toFixed(5)}`;
 };
 
+const resetMainPinMarker = () => {
+  mainPinMarker.setLatLng({
+    lat: INITIAL_MAIN_PIN_MARKER_LAT,
+    lng: INITIAL_MAIN_PIN_MARKER_LNG});
+};
+
 const setAdvertAddress = () => {
   mainPinMarker.on('moveend', (evt) => {
     mainPinMarkerLat = Number(evt.target.getLatLng().lat.toFixed(5));
@@ -72,6 +78,7 @@ const setAdvertAddress = () => {
   });
 };
 
-export{renderMap, setAdvertAddress};
-export{INITIAL_MAIN_PIN_MARKER_LAT};
-export{INITIAL_MAIN_PIN_MARKER_LNG};
+export {renderMap, setAdvertAddress};
+export {INITIAL_MAIN_PIN_MARKER_LAT};
+export {INITIAL_MAIN_PIN_MARKER_LNG};
+export {resetMainPinMarker};

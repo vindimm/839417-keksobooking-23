@@ -81,21 +81,27 @@ const resetFilterForm = () => {
   filterFormHousingFeatures.forEach((checkbox) => checkbox.checked = false);
 };
 
-advertForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const formData = new FormData(evt.target);
-  fetch(
-    'https://23.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body: formData,
-    },
-  )
-    .then(() => {
-      resetAdvertForm();
-      resetFilterForm();
+// const resetAllForms = () => {
+//   resetAdvertForm();
+//   resetFilterForm();
+// };
+
+const setAdvertFormSubmit = (onSucsess1, onSucsess2) => {
+  advertForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    fetch(
+      'https://23.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then(() => {
+      onSucsess1();
+      onSucsess2();
     });
-});
+  });
+};
 
 advertFormTitleInput.addEventListener('input', () => {
   const valueLength = advertFormTitleInput.value.length;
@@ -189,3 +195,6 @@ advertFormTimeOut.addEventListener('change', () => {
 
 export {deactivateForms};
 export {activateForms};
+export {setAdvertFormSubmit};
+export {resetAdvertForm};
+export {resetFilterForm};
