@@ -55,6 +55,10 @@ const activateForms = () => {
   });
 };
 
+advertForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+});
+
 advertFormTitleInput.addEventListener('input', () => {
   const valueLength = advertFormTitleInput.value.length;
   if (valueLength < MIN_TITLE_LENGTH) {

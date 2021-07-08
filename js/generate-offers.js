@@ -1,24 +1,33 @@
-import {similarAdverts} from './data.js';
+// мы получаем от сервера массив объектов similarAdverts. Это список похожих объявлений.
+// в этом модуле создадим функцию renderAdvertsMarkup(arrayData),
+// которая будет создавать HTML-разметку на основе массива данных.
+// экспортируем renderAdvertsMarkup() в main.js
 
-const createFeaturesList = (list, items, indexOfAdvert) => {
+const createFeaturesList = (list, items, advert) => {
   items.forEach((item) => {
     item.remove();
   });
-  similarAdverts[indexOfAdvert].offer.features.forEach((item) => {
-    const newFeature = document.createElement('li');
-    newFeature.classList.add('popup__feature');
-    newFeature.classList.add(`popup__feature--${item}`);
-    list.appendChild(newFeature);
-  });
+  // проверка на существование features, так как в некоторых объявлениях массив features не существует и равен undefined
+  if (advert.offer.features) {
+    advert.offer.features.forEach((item) => {
+      const newFeature = document.createElement('li');
+      newFeature.classList.add('popup__feature');
+      newFeature.classList.add(`popup__feature--${item}`);
+      list.appendChild(newFeature);
+    });
+  }
 };
 
-const createPhotosList = (list, item, indexOfAdvert) => {
+const createPhotosList = (list, item, advert) => {
   item.remove();
-  similarAdverts[indexOfAdvert].offer.photos.map((imgSrc) => {
-    const newPhoto = item.cloneNode(true);
-    newPhoto.src = imgSrc;
-    list.append(newPhoto);
-  });
+  // проверка на существование photos, так как в некоторых объявлениях массив photos не существует и равен undefined.
+  if (advert.offer.photos) {
+    advert.offer.photos.map((imgSrc) => {
+      const newPhoto = item.cloneNode(true);
+      newPhoto.src = imgSrc;
+      list.append(newPhoto);
+    });
+  }
 };
 
 const hideEmptyTag = (tag) => {
@@ -27,7 +36,7 @@ const hideEmptyTag = (tag) => {
   }
 };
 
-const createNewAdvert = (indexAdvert) => {
+const renderNewAdvertMarkup = (advert) => {
   const templateFragment = document.querySelector('#card').content;
   const template = templateFragment.querySelector('.popup');
   const element = template.cloneNode(true);
@@ -44,21 +53,21 @@ const createNewAdvert = (indexAdvert) => {
   const popupPhotosList = element.querySelector('.popup__photos');
   const popupPhotoItem = element.querySelector('.popup__photo');
 
-  popupTitle.textContent = similarAdverts[indexAdvert].offer.title;
+  popupTitle.textContent = advert.offer.title;
   hideEmptyTag(popupTitle);
-  popupAddress.textContent = similarAdverts[indexAdvert].offer.address;
+  popupAddress.textContent = advert.offer.address;
   hideEmptyTag(popupAddress);
-  popupPrice.textContent = `${similarAdverts[indexAdvert].offer.price} ₽/ночь`;
+  popupPrice.textContent = `${advert.offer.price} ₽/ночь`;
   hideEmptyTag(popupPrice);
-  popupCapacity.textContent =`${similarAdverts[indexAdvert].offer.room} комнаты для ${similarAdverts[indexAdvert].offer.guests} гостей`;
+  popupCapacity.textContent =`${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`;
   hideEmptyTag(popupCapacity);
-  popupTime.textContent = `Заезд после ${similarAdverts[indexAdvert].offer.checkin}, выезд до ${similarAdverts[indexAdvert].offer.checkout}`;
+  popupTime.textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
   hideEmptyTag(popupTime);
-  popupDescription.textContent = similarAdverts[indexAdvert].offer.description;
+  popupDescription.textContent = advert.offer.description;
   hideEmptyTag(popupDescription);
-  popupAvatar.src = similarAdverts[indexAdvert].author.avatar;
+  popupAvatar.src = advert.author.avatar;
   popupAvatar.onerror = () => popupAvatar.classList.add('visually-hidden');
-  switch (similarAdverts[indexAdvert].offer.type) {
+  switch (advert.offer.type) {
     case 'flat':
       popupType.textContent = 'Квартира';
       break;
@@ -75,26 +84,22 @@ const createNewAdvert = (indexAdvert) => {
       popupType.textContent = 'Отель';
       break;
     default:
-      popupType.textContent = similarAdverts[indexAdvert].offer.type;
+      popupType.textContent = advert.offer.type;
   }
   hideEmptyTag(popupType);
-  createFeaturesList(popupFeatureList, popupFeatureItems, indexAdvert);
-  createPhotosList(popupPhotosList, popupPhotoItem, indexAdvert);
+  createFeaturesList(popupFeatureList, popupFeatureItems, advert);
+  createPhotosList(popupPhotosList, popupPhotoItem, advert);
 
   return element;
 };
 
-// создание 10 объявлений
-const fragment = document.createDocumentFragment();
-for (let i = 0; i < similarAdverts.length; i++) {
-  const newAdvert = createNewAdvert(i);
-  fragment.appendChild(newAdvert);
-}
-const tenAdverts = fragment;
+const renderAdvertsMarkup = (similarAdverts) => {
+  const fragment = document.createDocumentFragment();
+  similarAdverts.forEach((item) => {
+    const newAdvertMarkup = renderNewAdvertMarkup(item);
+    fragment.appendChild(newAdvertMarkup);
+  });
+  return fragment;
+};
 
-
-// создание 1 объявления
-const oneAdvert = createNewAdvert(0);
-
-export {oneAdvert};
-export {tenAdverts};
+export {renderAdvertsMarkup};

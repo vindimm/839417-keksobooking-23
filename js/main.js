@@ -1,6 +1,5 @@
 import {deactivateForms} from './form.js';
-import {renderMap, setAdvertAddress} from './generate-map.js';
+import './get-data.js';
 
 deactivateForms();
-renderMap();
-setAdvertAddress();
+
