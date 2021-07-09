@@ -1,4 +1,5 @@
 import {activateForms} from './form.js';
+import {renderAdvertsMarkup} from './generate-offers.js';
 
 const INITIAL_MAIN_PIN_MARKER_LAT = 35.67005;
 const INITIAL_MAIN_PIN_MARKER_LNG = 139.75005;
@@ -23,7 +24,9 @@ const mainPinMarker = L.marker(
   },
 );
 
-const renderMap = (similarAdverts, advertsMarkup) => {
+const renderMap = (similarAdverts) => {
+  const advertsMarkup = renderAdvertsMarkup(similarAdverts);
+
   const map = L.map('map-canvas')
     .on('load', () => {
       activateForms();
@@ -62,6 +65,12 @@ const renderMap = (similarAdverts, advertsMarkup) => {
 
   mainPinMarker.addTo(map);
   document.querySelector('#address').value = `${mainPinMarkerLat.toFixed(5)}, ${mainPinMarkerLng.toFixed(5)}`;
+
+  mainPinMarker.on('moveend', (evt) => {
+    mainPinMarkerLat = Number(evt.target.getLatLng().lat.toFixed(5));
+    mainPinMarkerLng = evt.target.getLatLng().lng.toFixed(5);
+    document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
+  });
 };
 
 const resetMainPinMarker = () => {
@@ -70,15 +79,7 @@ const resetMainPinMarker = () => {
     lng: INITIAL_MAIN_PIN_MARKER_LNG});
 };
 
-const setAdvertAddress = () => {
-  mainPinMarker.on('moveend', (evt) => {
-    mainPinMarkerLat = Number(evt.target.getLatLng().lat.toFixed(5));
-    mainPinMarkerLng = evt.target.getLatLng().lng.toFixed(5);
-    document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
-  });
-};
-
-export {renderMap, setAdvertAddress};
+export {renderMap};
+export {resetMainPinMarker};
 export {INITIAL_MAIN_PIN_MARKER_LAT};
 export {INITIAL_MAIN_PIN_MARKER_LNG};
-export {resetMainPinMarker};

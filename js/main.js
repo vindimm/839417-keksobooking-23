@@ -1,14 +1,18 @@
-import {deactivateForms} from './form.js';
-import {setAdvertFormSubmit} from './form.js';
-import {resetAdvertForm} from './form.js';
-import {resetFilterForm} from './form.js';
-import {resetMainPinMarker} from './generate-map.js';
-import './link-backend.js';
+import {deactivateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit} from './form.js';
+import {resetMainPinMarker, renderMap} from './generate-map.js';
+import {getData} from './link-backend.js';
 
 const refreshPage = () => {
   resetAdvertForm();
   resetFilterForm();
   resetMainPinMarker();
 };
+
 deactivateForms();
+
+getData((adverts) => {
+  renderMap(adverts);
+});
+
+
 setAdvertFormSubmit(refreshPage);

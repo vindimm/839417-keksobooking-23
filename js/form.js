@@ -1,5 +1,6 @@
-import {INITIAL_MAIN_PIN_MARKER_LAT} from './generate-map.js';
-import {INITIAL_MAIN_PIN_MARKER_LNG} from './generate-map.js';
+import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG} from './generate-map.js';
+import {showAlert} from './utils.js';
+import {sendData} from './link-backend.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -81,25 +82,15 @@ const resetFilterForm = () => {
   filterFormHousingFeatures.forEach((checkbox) => checkbox.checked = false);
 };
 
-// const resetAllForms = () => {
-//   resetAdvertForm();
-//   resetFilterForm();
-// };
-
-const setAdvertFormSubmit = (onSucsess1, onSucsess2) => {
+const setAdvertFormSubmit = (onSuccess) => {
   advertForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const formData = new FormData(evt.target);
-    fetch(
-      'https://23.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then(() => {
-      onSucsess1();
-      onSucsess2();
-    });
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
   });
 };
 

@@ -1,7 +1,7 @@
 // мы получаем от сервера массив объектов similarAdverts. Это список похожих объявлений.
-// в этом модуле создадим функцию renderAdvertsMarkup(arrayData),
+// в этом модуле создадим функцию renderAdvertsMarkup(similarAdverts),
 // которая будет создавать HTML-разметку на основе массива данных.
-// экспортируем renderAdvertsMarkup() в main.js
+// экспортируем renderAdvertsMarkup() в generate-map.js
 
 const createFeaturesList = (list, items, advert) => {
   items.forEach((item) => {
