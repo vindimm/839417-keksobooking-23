@@ -1,4 +1,4 @@
-import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG} from './generate-map.js';
+import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG, resetMainPinMarker} from './generate-map.js';
 import {showAlertMessage} from './popup-messages.js';
 import {sendData} from './link-backend.js';
 
@@ -30,11 +30,12 @@ const advertFormCapacity = advertForm.querySelector('#capacity');
 const advertFormCapacityOptions = advertFormCapacity.querySelectorAll('option');
 const advertFormTimeIn = advertForm.querySelector('#timein');
 const advertFormTimeOut = advertForm.querySelector('#timeout');
-const advertFormAdress = advertForm.querySelector('#address');
+const advertFormAddress = advertForm.querySelector('#address');
 const advertFormFeatures = advertForm.querySelectorAll('input');
 const advertFormDescription = advertForm.querySelector('#description');
 const filterFormHousingSelects = filterForm.querySelectorAll('select');
 const filterFormHousingFeatures = filterForm.querySelectorAll('input');
+const advertFormResetButton = advertForm.querySelector('.ad-form__reset');
 
 const deactivateForms = () => {
   advertForm.classList.add('ad-form--disabled');
@@ -67,12 +68,15 @@ const activateForms = () => {
 const resetAdvertForm = () => {
   advertFormTitleInput.value = '';
   advertFormPriceInput.value = '';
+  advertFormPriceInput.placeholder = MIN_FLAT_PRICE.toString();
+  advertFormPriceInput.min = MIN_FLAT_PRICE;
+  minPriceValue = MIN_FLAT_PRICE;
   advertFormHousingType.value = 'flat';
   advertFormRoomNumber.value = 1;
   advertFormCapacity.value = 1;
   advertFormTimeIn.value = '12:00';
   advertFormTimeOut.value = '12:00';
-  advertFormAdress.value = `${INITIAL_MAIN_PIN_MARKER_LAT}, ${INITIAL_MAIN_PIN_MARKER_LNG}`;
+  advertFormAddress.value = `${INITIAL_MAIN_PIN_MARKER_LAT}, ${INITIAL_MAIN_PIN_MARKER_LNG}`;
   advertFormDescription.value = '';
   advertFormFeatures.forEach((checkbox) => checkbox.checked = false);
 };
@@ -182,6 +186,13 @@ advertFormTimeIn.addEventListener('change', () => {
 
 advertFormTimeOut.addEventListener('change', () => {
   advertFormTimeIn.value = advertFormTimeOut.value;
+});
+
+advertFormResetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetMainPinMarker();
+  resetAdvertForm();
+  resetFilterForm();
 });
 
 export {deactivateForms};

@@ -68,7 +68,7 @@ const renderMap = (similarAdverts) => {
 
   mainPinMarker.on('moveend', (evt) => {
     mainPinMarkerLat = Number(evt.target.getLatLng().lat.toFixed(5));
-    mainPinMarkerLng = evt.target.getLatLng().lng.toFixed(5);
+    mainPinMarkerLng = Number(evt.target.getLatLng().lng.toFixed(5));
     document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
   });
 };
@@ -76,7 +76,8 @@ const renderMap = (similarAdverts) => {
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng({
     lat: INITIAL_MAIN_PIN_MARKER_LAT,
-    lng: INITIAL_MAIN_PIN_MARKER_LNG});
+    lng: INITIAL_MAIN_PIN_MARKER_LNG,
+  });
 };
 
 export {renderMap};
