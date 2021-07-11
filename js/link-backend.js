@@ -1,13 +1,10 @@
-// import {renderMap, setAdvertAddress} from './generate-map.js';
-// import {renderAdvertsMarkup} from './generate-offers.js';
+import {showSuccessMessage} from './popup-messages.js';
 
 const getData = (onSuccess) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((adverts) => {
-      // const advertsMarkup = renderAdvertsMarkup(adverts);
       onSuccess(adverts);
-      // setAdvertAddress(adverts);
     });
 };
 
@@ -22,6 +19,7 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        showSuccessMessage();
       } else {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');
       }

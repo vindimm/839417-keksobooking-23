@@ -1,5 +1,5 @@
 import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG} from './generate-map.js';
-import {showAlert} from './utils.js';
+import {showAlertMessage} from './popup-messages.js';
 import {sendData} from './link-backend.js';
 
 const MIN_TITLE_LENGTH = 30;
@@ -88,7 +88,7 @@ const setAdvertFormSubmit = (onSuccess) => {
 
     sendData(
       () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => showAlertMessage('Не удалось отправить форму. Попробуйте ещё раз'),
       new FormData(evt.target),
     );
   });

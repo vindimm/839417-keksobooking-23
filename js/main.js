@@ -14,5 +14,4 @@ getData((adverts) => {
   renderMap(adverts);
 });
 
-
 setAdvertFormSubmit(refreshPage);
