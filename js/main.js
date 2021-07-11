@@ -1,6 +1,19 @@
-import {deactivateForms} from './form.js';
-import {renderMap, setAdvertAddress} from './generate-map.js';
+import {deactivateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit} from './form.js';
+import {resetMainPinMarker, renderMap} from './generate-map.js';
+import {getData} from './api.js';
+import {showAlertMessage} from './popup-messages.js';
+
+const refreshPage = () => {
+  resetAdvertForm();
+  resetFilterForm();
+  resetMainPinMarker();
+};
 
 deactivateForms();
-renderMap();
-setAdvertAddress();
+
+getData(
+  (adverts) => renderMap(adverts),
+  () => showAlertMessage('Упс... Данные не загрузились'),
+);
+
+setAdvertFormSubmit(refreshPage);

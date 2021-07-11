@@ -1,11 +1,8 @@
 import {activateForms} from './form.js';
-// Данные в виде массива JS-объектов
-import {similarAdverts} from './data.js';
-// Данные в виде document-fragment с HTML-разметкой внутри
-import {tenAdverts} from './generate-offers.js';
+import {renderAdvertsMarkup} from './generate-offers.js';
 
-const INITIAL_MAIN_PIN_MARKER_LAT = 35.68950;
-const INITIAL_MAIN_PIN_MARKER_LNG = 139.77500;
+const INITIAL_MAIN_PIN_MARKER_LAT = 35.67005;
+const INITIAL_MAIN_PIN_MARKER_LNG = 139.75005;
 
 let mainPinMarkerLat = INITIAL_MAIN_PIN_MARKER_LAT;
 let mainPinMarkerLng = INITIAL_MAIN_PIN_MARKER_LNG;
@@ -27,13 +24,9 @@ const mainPinMarker = L.marker(
   },
 );
 
-const getCoordinatsFromOffer = (offer) => {
-  const lat = Number.parseFloat(offer.address.split(' ')[0]);
-  const lng = Number.parseFloat(offer.address.split(' ')[1]);
-  return [lat, lng];
-};
+const renderMap = (similarAdverts) => {
+  const advertsMarkup = renderAdvertsMarkup(similarAdverts);
 
-const renderMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {
       activateForms();
@@ -41,7 +34,7 @@ const renderMap = () => {
     .setView({
       lat: INITIAL_MAIN_PIN_MARKER_LAT,
       lng: INITIAL_MAIN_PIN_MARKER_LNG,
-    }, 12);
+    }, 12.5);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -49,8 +42,8 @@ const renderMap = () => {
     },
   ).addTo(map);
 
-  similarAdverts.forEach(({offer}, index) => {
-    const [lat, lng] = getCoordinatsFromOffer(offer);
+  similarAdverts.forEach(({location}, index) => {
+    const {lat, lng} = location;
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
@@ -67,19 +60,27 @@ const renderMap = () => {
     );
     marker
       .addTo(map)
-      .bindPopup(tenAdverts.children[index]);
+      .bindPopup(advertsMarkup.children[index]);
   });
 
   mainPinMarker.addTo(map);
   document.querySelector('#address').value = `${mainPinMarkerLat.toFixed(5)}, ${mainPinMarkerLng.toFixed(5)}`;
-};
 
-const setAdvertAddress = () => {
   mainPinMarker.on('moveend', (evt) => {
     mainPinMarkerLat = Number(evt.target.getLatLng().lat.toFixed(5));
-    mainPinMarkerLng = evt.target.getLatLng().lng.toFixed(5);
+    mainPinMarkerLng = Number(evt.target.getLatLng().lng.toFixed(5));
     document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
   });
 };
 
-export{renderMap, setAdvertAddress};
+const resetMainPinMarker = () => {
+  mainPinMarker.setLatLng({
+    lat: INITIAL_MAIN_PIN_MARKER_LAT,
+    lng: INITIAL_MAIN_PIN_MARKER_LNG,
+  });
+};
+
+export {renderMap};
+export {resetMainPinMarker};
+export {INITIAL_MAIN_PIN_MARKER_LAT};
+export {INITIAL_MAIN_PIN_MARKER_LNG};

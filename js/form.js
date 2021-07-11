@@ -1,3 +1,7 @@
+import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG, resetMainPinMarker} from './generate-map.js';
+import {showAlertMessage} from './popup-messages.js';
+import {sendData} from './api.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
@@ -10,6 +14,8 @@ const ROOM_NUMBER_OPTION_1 = 1;
 const ROOM_NUMBER_OPTION_2 = 2;
 const ROOM_NUMBER_OPTION_3 = 3;
 const ROOM_NUMBER_OPTION_4 = 100;
+
+let minPriceValue = 1000;
 
 const advertForm = document.querySelector('.ad-form');
 const advertFieldsets = advertForm.querySelectorAll('fieldset');
@@ -24,8 +30,12 @@ const advertFormCapacity = advertForm.querySelector('#capacity');
 const advertFormCapacityOptions = advertFormCapacity.querySelectorAll('option');
 const advertFormTimeIn = advertForm.querySelector('#timein');
 const advertFormTimeOut = advertForm.querySelector('#timeout');
-
-let minPriceValue = 1000;
+const advertFormAddress = advertForm.querySelector('#address');
+const advertFormFeatures = advertForm.querySelectorAll('input');
+const advertFormDescription = advertForm.querySelector('#description');
+const filterFormHousingSelects = filterForm.querySelectorAll('select');
+const filterFormHousingFeatures = filterForm.querySelectorAll('input');
+const advertFormResetButton = advertForm.querySelector('.ad-form__reset');
 
 const deactivateForms = () => {
   advertForm.classList.add('ad-form--disabled');
@@ -52,6 +62,39 @@ const activateForms = () => {
   });
   filterSelects.forEach((element) => {
     element.disabled = false;
+  });
+};
+
+const resetAdvertForm = () => {
+  advertFormTitleInput.value = '';
+  advertFormPriceInput.value = '';
+  advertFormPriceInput.placeholder = MIN_FLAT_PRICE.toString();
+  advertFormPriceInput.min = MIN_FLAT_PRICE;
+  minPriceValue = MIN_FLAT_PRICE;
+  advertFormHousingType.value = 'flat';
+  advertFormRoomNumber.value = 1;
+  advertFormCapacity.value = 1;
+  advertFormTimeIn.value = '12:00';
+  advertFormTimeOut.value = '12:00';
+  advertFormAddress.value = `${INITIAL_MAIN_PIN_MARKER_LAT}, ${INITIAL_MAIN_PIN_MARKER_LNG}`;
+  advertFormDescription.value = '';
+  advertFormFeatures.forEach((checkbox) => checkbox.checked = false);
+};
+
+const resetFilterForm = () => {
+  filterFormHousingSelects.forEach((select) => select.value = 'any');
+  filterFormHousingFeatures.forEach((checkbox) => checkbox.checked = false);
+};
+
+const setAdvertFormSubmit = (onSuccess) => {
+  advertForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlertMessage('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
   });
 };
 
@@ -145,5 +188,15 @@ advertFormTimeOut.addEventListener('change', () => {
   advertFormTimeIn.value = advertFormTimeOut.value;
 });
 
+advertFormResetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetMainPinMarker();
+  resetAdvertForm();
+  resetFilterForm();
+});
+
 export {deactivateForms};
 export {activateForms};
+export {setAdvertFormSubmit};
+export {resetAdvertForm};
+export {resetFilterForm};
