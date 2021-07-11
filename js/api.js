@@ -1,10 +1,19 @@
 import {showSuccessMessage} from './popup-messages.js';
 
-const getData = (onSuccess) => {
+const getData = (onSuccess, onFail) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((adverts) => {
-      onSuccess(adverts);
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then((json) => {
+      onSuccess(json);
+    })
+    .catch(() => {
+      onFail('OOOOOpssss');
     });
 };
 

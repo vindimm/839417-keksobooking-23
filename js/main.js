@@ -1,6 +1,7 @@
 import {deactivateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit} from './form.js';
 import {resetMainPinMarker, renderMap} from './generate-map.js';
-import {getData} from './link-backend.js';
+import {getData} from './api.js';
+import {showAlertMessage} from './popup-messages.js';
 
 const refreshPage = () => {
   resetAdvertForm();
@@ -10,8 +11,9 @@ const refreshPage = () => {
 
 deactivateForms();
 
-getData((adverts) => {
-  renderMap(adverts);
-});
+getData(
+  (adverts) => renderMap(adverts),
+  () => showAlertMessage('Упс... Данные не загрузились'),
+);
 
 setAdvertFormSubmit(refreshPage);
