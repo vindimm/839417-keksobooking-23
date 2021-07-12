@@ -3,6 +3,7 @@ import {renderAdvertsMarkup} from './generate-offers.js';
 
 const INITIAL_MAIN_PIN_MARKER_LAT = 35.67005;
 const INITIAL_MAIN_PIN_MARKER_LNG = 139.75005;
+const MAX_AMOUNT_ADVERTS = 10;
 
 let mainPinMarkerLat = INITIAL_MAIN_PIN_MARKER_LAT;
 let mainPinMarkerLng = INITIAL_MAIN_PIN_MARKER_LNG;
@@ -27,6 +28,8 @@ const mainPinMarker = L.marker(
 const renderMap = (similarAdverts) => {
   const advertsMarkup = renderAdvertsMarkup(similarAdverts);
 
+  const sortedAdverts = similarAdverts.slice(0, MAX_AMOUNT_ADVERTS);
+
   const map = L.map('map-canvas')
     .on('load', () => {
       activateForms();
@@ -42,7 +45,7 @@ const renderMap = (similarAdverts) => {
     },
   ).addTo(map);
 
-  similarAdverts.forEach(({location}, index) => {
+  sortedAdverts.forEach(({location}, index) => {
     const {lat, lng} = location;
     const icon = L.icon({
       iconUrl: 'img/pin.svg',

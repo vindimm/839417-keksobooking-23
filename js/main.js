@@ -2,6 +2,7 @@ import {deactivateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit} 
 import {resetMainPinMarker, renderMap} from './generate-map.js';
 import {getData} from './api.js';
 import {showAlertMessage} from './popup-messages.js';
+// import {onFilterFormChange} from '/.filters.js';
 
 const refreshPage = () => {
   resetAdvertForm();
@@ -17,3 +18,5 @@ getData(
 );
 
 setAdvertFormSubmit(refreshPage);
+
+// onFilterFormChange();
