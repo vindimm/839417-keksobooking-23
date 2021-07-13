@@ -16,8 +16,6 @@ const DEFAULT_FILTER_VALUES = {
 const currentFilterValues = DEFAULT_FILTER_VALUES;
 
 const getFilterValues = () => {
-  // console.log(filterForm.querySelector('#housing-type option[value = flat]').selected);
-
   currentFilterValues.type = filterForm.querySelector('#housing-type').value;
   currentFilterValues.price = filterForm.querySelector('#housing-price').value;
   currentFilterValues.rooms = filterForm.querySelector('#housing-rooms').value;
@@ -29,12 +27,6 @@ const getFilterValues = () => {
   currentFilterValues.featuresElevator = filterForm.querySelector('#filter-elevator').checked;
   currentFilterValues.featuresConditioner = filterForm.querySelector('#filter-conditioner').checked;
 };
-
-
-// const getAdvertRank = (advert) => {
-//   let rank = 0;
-//   console.log(advert);
-// };
 
 const onFilterFormChange = (cb) => {
   filterForm.addEventListener('change', () => {

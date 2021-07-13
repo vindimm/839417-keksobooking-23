@@ -4,6 +4,8 @@ import {getData} from './api.js';
 import {showAlertMessage} from './popup-messages.js';
 import {onFilterFormChange} from './filters.js';
 
+const RERENDER_DELAY = 500;
+
 const refreshPage = () => {
   resetAdvertForm();
   resetFilterForm();
@@ -16,7 +18,10 @@ getData(
   (adverts) => {
     renderMap(adverts);
     renderMarkers(adverts);
-    onFilterFormChange(() => renderMarkers(adverts));
+    onFilterFormChange(_.debounce(
+      () => renderMarkers(adverts),
+      RERENDER_DELAY,
+    ));
   },
   () => showAlertMessage('Упс... Данные не загрузились'),
 );
