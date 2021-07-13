@@ -102,4 +102,4 @@ const renderAdvertsMarkup = (similarAdverts) => {
   return fragment;
 };
 
-export {renderAdvertsMarkup};
+export {renderAdvertsMarkup, renderNewAdvertMarkup};
