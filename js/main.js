@@ -6,12 +6,6 @@ import {onFilterFormChange} from './filters.js';
 
 const RERENDER_DELAY = 500;
 
-const refreshPage = () => {
-  resetAdvertForm();
-  resetFilterForm();
-  resetMainPinMarker();
-};
-
 deactivateForms();
 
 getData(
@@ -26,4 +20,8 @@ getData(
   () => showAlertMessage('Упс... Данные не загрузились'),
 );
 
-setAdvertFormSubmit(refreshPage);
+setAdvertFormSubmit(() => {
+  resetAdvertForm();
+  resetFilterForm();
+  resetMainPinMarker();
+});
