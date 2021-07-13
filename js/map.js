@@ -48,6 +48,7 @@ const renderMap = () => {
 
   mainPinMarker.addTo(map);
   markerGroup = L.layerGroup().addTo(map);
+  document.querySelector('#address').value = `${INITIAL_MAIN_PIN_MARKER_LAT}, ${INITIAL_MAIN_PIN_MARKER_LNG}`;
 };
 
 const renderMainPinMarker = () => {
