@@ -1,4 +1,4 @@
-import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG, resetMainPinMarker} from './generate-map.js';
+import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG, resetMainPinMarker} from './map.js';
 import {showAlertMessage} from './popup-messages.js';
 import {sendData} from './api.js';
 
@@ -195,8 +195,4 @@ advertFormResetButton.addEventListener('click', (evt) => {
   resetFilterForm();
 });
 
-export {deactivateForms};
-export {activateForms};
-export {setAdvertFormSubmit};
-export {resetAdvertForm};
-export {resetFilterForm};
+export {deactivateForms, activateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit};
