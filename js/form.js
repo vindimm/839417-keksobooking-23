@@ -1,6 +1,7 @@
 import {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG, resetMainPinMarker} from './map.js';
 import {showAlertMessage} from './popup-messages.js';
 import {sendData} from './api.js';
+import {resetPhotos} from './upload-foto.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -193,6 +194,7 @@ advertFormResetButton.addEventListener('click', (evt) => {
   resetMainPinMarker();
   resetAdvertForm();
   resetFilterForm();
+  resetPhotos();
 });
 
 export {deactivateForms, activateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit};

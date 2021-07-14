@@ -4,6 +4,7 @@ import {getData} from './api.js';
 import {showAlertMessage} from './popup-messages.js';
 import {onFilterFormChange} from './filters.js';
 import {debounce} from './utils/debounce.js';
+import {resetPhotos} from './upload-foto.js';
 
 const RERENDER_DELAY = 500;
 
@@ -25,4 +26,5 @@ setAdvertFormSubmit(() => {
   resetAdvertForm();
   resetFilterForm();
   resetMainPinMarker();
+  resetPhotos();
 });
