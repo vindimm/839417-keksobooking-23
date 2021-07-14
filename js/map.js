@@ -6,6 +6,8 @@ const AMOUNT_ADVERTS = 10;
 const INITIAL_MAP_VIEW_SCALE = 12.5;
 const INITIAL_MAIN_PIN_MARKER_LAT = 35.67005;
 const INITIAL_MAIN_PIN_MARKER_LNG = 139.75005;
+const LOW_PRICE = 10000;
+const MIDDLE_PRICE = 50000;
 
 let mainPinMarkerLat = INITIAL_MAIN_PIN_MARKER_LAT;
 let mainPinMarkerLng = INITIAL_MAIN_PIN_MARKER_LNG;
@@ -110,15 +112,12 @@ const renderMarker = (advert) => {
 
 const renderMarkers = (adverts) => {
   markerGroup.clearLayers();
-
-  // console.log(adverts);
-
   const advertsModified = adverts.slice();
 
   advertsModified.forEach((advert) => {
-    if (advert.offer.price < 10000) {
+    if (advert.offer.price < LOW_PRICE) {
       advert.offer.priceCategory = 'low';
-    } else if (advert.offer.price < 50000) {
+    } else if (advert.offer.price < MIDDLE_PRICE) {
       advert.offer.priceCategory = 'middle';
     } else {
       advert.offer.priceCategory = 'high';

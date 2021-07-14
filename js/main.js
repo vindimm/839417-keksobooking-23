@@ -3,6 +3,7 @@ import {resetMainPinMarker, renderMap, renderMarkers} from './map.js';
 import {getData} from './api.js';
 import {showAlertMessage} from './popup-messages.js';
 import {onFilterFormChange} from './filters.js';
+import {debounce} from './utils/debounce.js';
 
 const RERENDER_DELAY = 500;
 
@@ -12,7 +13,7 @@ getData(
   (adverts) => {
     renderMap(adverts);
     renderMarkers(adverts);
-    onFilterFormChange(_.debounce(
+    onFilterFormChange(debounce(
       () => renderMarkers(adverts),
       RERENDER_DELAY,
     ));
