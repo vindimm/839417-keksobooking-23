@@ -1,5 +1,7 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const DEFAULT_AVATAR_URL = 'img/muffin-grey.svg';
+const ADV_IMG_WIDTH = 70;
+const ADV_IMG_HEIGHT = 70;
 
 const avatarFileChooser = document.querySelector('.ad-form__field input[type=file]');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
@@ -14,7 +16,7 @@ const resetPhotos = () => {
 
 const uploadAdvertImg = () => {
   advertFileChooser.addEventListener('change', () => {
-    const newImg = new Image(70, 70);
+    const newImg = new Image(ADV_IMG_WIDTH, ADV_IMG_HEIGHT);
     advertPreviewContainer.appendChild(newImg);
 
     const file = advertFileChooser.files[0];

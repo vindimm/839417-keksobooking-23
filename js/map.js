@@ -53,21 +53,6 @@ const renderMap = () => {
   document.querySelector('#address').value = `${INITIAL_MAIN_PIN_MARKER_LAT}, ${INITIAL_MAIN_PIN_MARKER_LNG}`;
 };
 
-const renderMainPinMarker = () => {
-  const mainMarker = L.marker(
-    {
-      INITIAL_MAIN_PIN_MARKER_LAT,
-      INITIAL_MAIN_PIN_MARKER_LNG,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  );
-
-  mainMarker.addTo(map);
-};
-
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng({
     lat: INITIAL_MAIN_PIN_MARKER_LAT,
@@ -153,7 +138,5 @@ mainPinMarker.on('moveend', (evt) => {
   document.querySelector('#address').value = `${mainPinMarkerLat}, ${mainPinMarkerLng}`;
 });
 
-export {resetMainPinMarker, resetMap, renderMarkers, renderMainPinMarker};
-export {renderMap};
-export {INITIAL_MAIN_PIN_MARKER_LAT};
-export {INITIAL_MAIN_PIN_MARKER_LNG};
+export {resetMainPinMarker, resetMap, renderMap, renderMarkers};
+export {INITIAL_MAIN_PIN_MARKER_LAT, INITIAL_MAIN_PIN_MARKER_LNG};

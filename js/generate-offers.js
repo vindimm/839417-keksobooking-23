@@ -93,13 +93,4 @@ const renderNewAdvertMarkup = (advert) => {
   return element;
 };
 
-const renderAdvertsMarkup = (similarAdverts) => {
-  const fragment = document.createDocumentFragment();
-  similarAdverts.forEach((item) => {
-    const newAdvertMarkup = renderNewAdvertMarkup(item);
-    fragment.appendChild(newAdvertMarkup);
-  });
-  return fragment;
-};
-
-export {renderAdvertsMarkup, renderNewAdvertMarkup};
+export {renderNewAdvertMarkup};

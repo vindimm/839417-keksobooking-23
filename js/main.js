@@ -1,5 +1,5 @@
 import {deactivateForms, resetAdvertForm, resetFilterForm, setAdvertFormSubmit} from './form.js';
-import {resetMainPinMarker, renderMap, renderMarkers} from './map.js';
+import {resetMainPinMarker, renderMap, renderMarkers, resetMap} from './map.js';
 import {getData} from './api.js';
 import {showAlertMessage} from './popup-messages.js';
 import {onFilterFormChange} from './filters.js';
@@ -25,6 +25,7 @@ getData(
 setAdvertFormSubmit(() => {
   resetAdvertForm();
   resetFilterForm();
+  resetMap();
   resetMainPinMarker();
   resetPhotos();
 });
